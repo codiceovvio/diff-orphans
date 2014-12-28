@@ -1,4 +1,61 @@
 diff-orphans
 ============
 
-Bash script to efficiently identify orphaned files in large trees; Useful for sanity-checking after copying large trees
+This is a Bash script that efficiently identifies orphan files in large trees.  (An orphan file is a file that exists in one tree but not another.)  The script is useful for sanity-checking after copying large trees, without diff'ing the file contents of the entire tree.  This script should be capable of running in OS X or in Linux.
+
+
+# Environment
+* Any OS having a Bash environment
+* The following tools must be installed, executable, and in the PATH:
+    * readlink
+    * basename
+    * find
+    * sort
+    * sed
+    * diff
+    * rm
+
+
+# Installation
+Simply copy diff-orphans.sh to a directory of your choosing.  Don't forget to make it executable:
+
+    chmod +x diff-orphans.sh
+
+
+# Usage
+```
+./diff-orphans.sh <leftTree> <rightTree>
+```
+
+# Example usage
+The following example shows that the "right" directory has an (extra) orphan file named "file5":
+```
+user@computer:~$ ./diff-orphans.sh left/ right/
+[+] Testing dependencies...
+[+] Validating arguments...
+[+] Setting up paths...
+[+] Creating tree for left directory...
+[+] Creating tree for right directory...
+[+] Pruning trees...
+[+] Performing diff of trees...
+5a6
+> file5
+[+] Cleaning up...
+[*] Success
+```
+
+The following example shows identical "left" and "right" directories (no orphans):
+```
+user@computer:~$ ./diff-orphans.sh left/ right/
+[+] Testing dependencies...
+[+] Validating arguments...
+[+] Setting up paths...
+[+] Creating tree for left directory...
+[+] Creating tree for right directory...
+[+] Pruning trees...
+[+] Performing diff of trees...
+[*] No orphans found
+[+] Cleaning up...
+[*] Success
+```
+
