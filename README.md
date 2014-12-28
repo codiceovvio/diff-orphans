@@ -3,6 +3,8 @@ diff-orphans
 
 This is a Bash script that efficiently identifies orphan files in large trees.  (An orphan file is a file that exists in one tree but not another.)  The script is useful for sanity-checking after copying large trees, without diff'ing the file contents of the entire tree.  This script should be capable of running in OS X or in Linux.
 
+This method operates by creating sorted file listings for each of the trees, and then using the standard ```diff``` tool on the file listings.  While this method does not detect differences in file contents, it does identify any missing files in either tree.
+
 
 # Environment
 * Any OS having a Bash environment
