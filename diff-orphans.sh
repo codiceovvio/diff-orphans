@@ -4,7 +4,7 @@
 #
 # Bash script to efficiently identify orphaned files in large trees.  Useful for sanity-checking after copying large trees.  This script should be capable of running in OS X or in Linux.
 #
-# Version 1.0.0
+# Version 1.0.1
 #
 # Copyright (C) 2014 Jonathan Elchison <JElchison@gmail.com>
 #
@@ -101,11 +101,11 @@ LIST_RIGHT=/tmp/$SCRIPT_NAME.$$.$RANDOM.list
 
 echo "[+] Creating tree for left directory..." >&2
 # `true` is so that a failure here doesn't cause entire script to exit prematurely
-find $DIR_LEFT | sort > $LIST_LEFT || true
+find "$DIR_LEFT" | sort > $LIST_LEFT || true
 
 echo "[+] Creating tree for right directory..." >&2
 # `true` is so that a failure here doesn't cause entire script to exit prematurely
-find $DIR_RIGHT | sort > $LIST_RIGHT || true
+find "$DIR_RIGHT" | sort > $LIST_RIGHT || true
 
 echo "[+] Pruning trees..." >&2
 sed -i "s|^$DIR_LEFT[/]*||g" $LIST_LEFT
