@@ -4,9 +4,9 @@
 #
 # Bash script to efficiently identify orphaned files in large trees.  Useful for sanity-checking after copying large trees.  This script should be capable of running in OS X or in Linux.
 #
-# Version 1.0.1
+# Version 1.0.2
 #
-# Copyright (C) 2014 Jonathan Elchison <JElchison@gmail.com>
+# Copyright (C) 2015 Jonathan Elchison <JElchison@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -72,13 +72,13 @@ DIR_LEFT=$(readlink -f "$1")
 DIR_RIGHT=$(readlink -f "$2")
 
 # ensure arguments are valid directories
-if [[ ! -d $DIR_LEFT ]]; then
-    echo "[-] '$DIR_LEFT' is not a directory" >&2
+if [[ ! -e $DIR_LEFT ]]; then
+    echo "[-] '$DIR_LEFT' does not exist" >&2
     print_usage
     exit 1
 fi
-if [[ ! -d $DIR_RIGHT ]]; then
-    echo "[-] '$DIR_RIGHT' is not a directory" >&2
+if [[ ! -e $DIR_RIGHT ]]; then
+    echo "[-] '$DIR_RIGHT' does not exist" >&2
     print_usage
     exit 1
 fi
