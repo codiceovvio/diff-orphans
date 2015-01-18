@@ -4,7 +4,7 @@
 #
 # Bash script to efficiently identify orphaned files in large trees.  Useful for sanity-checking after copying large trees.  This script should be capable of running in OS X or in Linux.
 #
-# Version 1.0.2
+# Version 1.0.3
 #
 # Copyright (C) 2015 Jonathan Elchison <JElchison@gmail.com>
 #
@@ -85,31 +85,10 @@ fi
 
 
 ###############################################################################
-# setup paths
+# setup variables
 ###############################################################################
-
-echo "[+] Setting up paths..." >&2
 
 SCRIPT_NAME=$(basename $0)
-LIST_LEFT=/tmp/$SCRIPT_NAME.$$.$RANDOM.list
-LIST_RIGHT=/tmp/$SCRIPT_NAME.$$.$RANDOM.list
-
-
-###############################################################################
-# create trees
-###############################################################################
-
-echo "[+] Creating tree for left directory..." >&2
-# `true` is so that a failure here doesn't cause entire script to exit prematurely
-find "$DIR_LEFT" | sort > $LIST_LEFT || true
-
-echo "[+] Creating tree for right directory..." >&2
-# `true` is so that a failure here doesn't cause entire script to exit prematurely
-find "$DIR_RIGHT" | sort > $LIST_RIGHT || true
-
-echo "[+] Pruning trees..." >&2
-sed -i "s|^$DIR_LEFT[/]*||g" $LIST_LEFT
-sed -i "s|^$DIR_RIGHT[/]*||g" $LIST_RIGHT
 
 
 ###############################################################################
@@ -117,17 +96,7 @@ sed -i "s|^$DIR_RIGHT[/]*||g" $LIST_RIGHT
 ###############################################################################
 
 echo "[+] Performing diff of trees..." >&2
-# `true` is so that a failure here doesn't cause entire script to exit prematurely
-diff $LIST_LEFT $LIST_RIGHT && echo "[*] No orphans found"
-
-
-###############################################################################
-# cleanup
-###############################################################################
-
-echo "[+] Cleaning up..." >&2
-rm -f $LIST_LEFT
-rm -f $LIST_RIGHT
+diff <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") && echo "[*] No orphans found"
 
 
 ###############################################################################
