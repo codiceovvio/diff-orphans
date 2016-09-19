@@ -34,7 +34,7 @@ set -euf -o pipefail
 #   None
 #######################################
 print_usage() {
-    echo "Usage:  $0 <leftTree> <rightTree>" >&2
+    echo "Usage: "$(basename $0)" <leftTree> <rightTree>" >&2
 }
 
 
@@ -89,14 +89,27 @@ fi
 ###############################################################################
 
 SCRIPT_NAME=$(basename $0)
-
+NAME_LEFT=$(basename "$1")
+NAME_RIGHT=$(basename "$2")
 
 ###############################################################################
 # perform diff of trees
 ###############################################################################
 
 echo "[+] Performing diff of trees..." >&2
-diff <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") && echo "[*] No orphans found"
+# diff <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") && echo "[*] No orphans found"
+
+
+echo "Tree comparison report:"
+echo "-----------------------"
+diff --unchanged-group-format="" --old-group-format="
+Only in folder \"${NAME_LEFT}\"
+%<---" --new-group-format="
+Only in folder \"${NAME_RIGHT}\"
+%>---
+"   <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") \
+    <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") \
+    && echo "[*] No orphans found"
 
 
 ###############################################################################
@@ -104,4 +117,3 @@ diff <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") <(find "$DIR_RIGHT" 
 ###############################################################################
 
 echo "[*] Success" >&2
-
