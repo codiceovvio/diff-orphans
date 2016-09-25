@@ -34,7 +34,7 @@ set -euf -o pipefail
 #   None
 #######################################
 print_usage() {
-    echo "Usage: "$(basename $0)" <leftTree> <rightTree>" >&2
+    echo "Usage: $(basename $0) <leftTree> <rightTree>" >&2
 }
 
 
@@ -88,7 +88,6 @@ fi
 # setup variables
 ###############################################################################
 
-SCRIPT_NAME=$(basename $0)
 NAME_LEFT=$(basename "$1")
 NAME_RIGHT=$(basename "$2")
 
