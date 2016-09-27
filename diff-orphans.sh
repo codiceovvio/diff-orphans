@@ -1,12 +1,22 @@
 #!/bin/bash
 
-# diff-orphans.sh
+# DIFF ORPHANS
 #
-# Bash script to efficiently identify orphaned files in large trees.  Useful for sanity-checking after copying large trees.  This script should be capable of running in OS X or in Linux.
+# Bash script to efficiently identify orphan files in large trees.
+# Useful for sanity-checking after copying large trees.
+# This script should be capable of running in OS X or in Linux.
 #
-# Version 1.0.3
+# Version: 1.1.0
+# Author: Codice Ovvio
+# URL: https://github.com/codiceovvio/diff-orphans
+# License: GPLv2+
+# (C) 2016 Codice Ovvio <codiceovvio@gmail.com>
 #
-# Copyright (C) 2015 Jonathan Elchison <JElchison@gmail.com>
+#
+# This is a fork of diff-orphans v1.0.3 by J.Elchison
+# Original script (C) 2015 Jonathan Elchison <JElchison@gmail.com>
+# it can be found at: https://github.com/JElchison/diff-orphans
+#
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +31,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 
 
 # setup Bash environment
