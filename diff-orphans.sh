@@ -85,13 +85,13 @@ fi
 NAME_LEFT=$(basename "$1")
 NAME_RIGHT=$(basename "$2")
 
+FULL_LIST="$HOME/orphans-tree-full.txt"
+
 # ------------------------------------------
 # perform diff of trees
 # ------------------------------------------
 
 echo "[+] Performing diff of trees..." >&2
-# diff <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") && echo "[*] No orphans found"
-
 
 echo "Tree comparison report:"
 echo "-----------------------"
@@ -101,7 +101,7 @@ Only in folder \"${NAME_LEFT}\"
 Only in folder \"${NAME_RIGHT}\"
 %>---
 "   <(find "$DIR_LEFT" | sort | sed "s|^$DIR_LEFT[/]*||g") \
-    <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") \
+    <(find "$DIR_RIGHT" | sort | sed "s|^$DIR_RIGHT[/]*||g") > "$FULL_LIST" \
     && echo "[*] No orphans found"
 
 
@@ -110,3 +110,4 @@ Only in folder \"${NAME_RIGHT}\"
 # ------------------------------------------
 
 echo "[*] Success" >&2
+echo "    You can check the log file generated at" \""$FULL_LIST"\" >&2
